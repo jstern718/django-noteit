@@ -1,0 +1,21 @@
+{% extends 'noteit/base.html' %}
+{% load static %}
+{% block content %}
+<legend>
+    <ul style="list-style: none; padding:2%; border-left: 1px black solid;">
+        <li style="font-size:large">title: {{ note.title }}</li>
+        <li style="font-size:small">created: {{ note.created_at|date:"D n-j-y"}} at
+            {{note.created_at|time:"P" }}</li>
+        <li style="font-size:small">modified: {{ note.updated_at|date:"D n-j-y"}} at
+            {{note.updated_at|time:"P" }}</li>
+        <hr>
+        <p>{{note.content}}</p>
+    </ul>
+
+    <a href="{% url 'noteit:detail' note.id %}" style="padding:2%"><button>edit note</button></a>
+
+
+
+
+</legend>
+{% endblock %}

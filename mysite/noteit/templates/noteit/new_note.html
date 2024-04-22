@@ -1,0 +1,25 @@
+{% extends 'noteit/base.html' %}
+
+{% block content %}
+
+<form action="{% url 'noteit:submit' note.id %}" method="post">
+    {% csrf_token %}
+    <fieldset>
+        <legend>
+            <h2>write your note</h2>
+        </legend>
+        {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+        <ul style="list-style: none">
+            <li>
+                <label for: "title"> title:
+                    <input type="text" name="title" value="" style="border-top:none; border-left:none; border-right:none">
+                </label>
+            </li>
+            <li style="padding-top:5%">
+                <textarea type="textarea" name="content" style="border:none; ;"></textarea>
+            </li>
+        </ul>
+    </fieldset>
+    <input type="submit" value="note">
+    </form>
+{% endblock %}

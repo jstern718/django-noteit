@@ -1,0 +1,15 @@
+<!doctype html>
+{% load static %}
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <title>My base html page</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="{% static 'js/main.js' %}" defer></script>
+  </head>
+  <body style="margin:3%">
+    <h1 style="-webkit-text-stroke: 1px; -webkit-text-fill-color: transparent; font-family: Arial;">noteit:_the_notes_app</h1>
+    {% block content %}{% endblock %}
+  </body>
+</html>
+

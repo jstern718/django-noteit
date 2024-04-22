@@ -1,0 +1,23 @@
+{% extends 'noteit/base.html' %}
+
+{% block content %}
+<a href="{% url 'noteit:new_note' %}" style="text-decoration: none;">new note</a>
+    <h3>recent_notes:</h3>
+    {% if latest_note_list %}
+        <ul>
+        {% for note in latest_note_list %}
+            <li>
+                <a href="{% url 'noteit:results' note.id %}" style="text-decoration: none;">{{ note.title }}</a>
+                <span style="font-size:smaller"> - [{{note.updated_at|date:"D n-j-y"}} at
+                        {{note.updated_at|time:"P"}}]
+                </span>
+            </li>
+            <li style="list-style: none">{{ note.content }}</li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No notes are available.</p>
+    {% endif %}
+{% endblock %}
+
+
