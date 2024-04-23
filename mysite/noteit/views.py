@@ -36,8 +36,8 @@ class IndexView(generic.ListView):
         note = Note.objects.create_note("", "", admin_user)
         note.save()
         new_id = note.id
-        context = {"title": "", "content": "", "user": admin_user,
-                   "note_id": new_id}
+        # context = {"title": "", "content": "", "user": admin_user,
+        #            "note_id": new_id}
 
         return HttpResponseRedirect(f"/noteit/notes/{new_id}")
         # return render(request, f"noteit/{new_id}/detail.html", context)

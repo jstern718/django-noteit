@@ -1,3 +1,7 @@
 body {
     background-color: gainsboro;
 }
+
+.textbox1{
+    object-fit: fill;
+}
