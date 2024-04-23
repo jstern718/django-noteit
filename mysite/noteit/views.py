@@ -1,13 +1,13 @@
 from django.db.models import F
 from django.shortcuts import get_object_or_404, render
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.views import generic
 from django.db import models
 from django.http import HttpResponseRedirect, HttpResponse
 from django.utils import timezone
 
-from .models import Note, User
-from .forms import Note_form
+from .models import Note, User, NoteForm
+# from .forms import Note_form
 
 
 def MessageView(x):
@@ -31,37 +31,34 @@ class IndexView(generic.ListView):
     def format_date(old_date):
         return old_date.strftime("%H:%M:%S")
 
+    def post(self, request, *args, **kwargs):
+        admin_user = User.objects.get(username="admin")
+        note = Note.objects.create_note("", "", admin_user)
+        note.save()
+        new_id = note.id
+        context = {"title": "", "content": "", "user": admin_user,
+                   "note_id": new_id}
+
+        return HttpResponseRedirect(f"/noteit/notes/{new_id}")
+        # return render(request, f"noteit/{new_id}/detail.html", context)
+
 
 class NewNoteView(generic.CreateView):
+    admin_user = User.objects.get(username="admin")
+    note = Note.objects.create_note("", "", admin_user)
+    note.save()
+    note_id = note.id
     model = Note
-    form_class = Note_form
-    initial = {'title': '', 'content': ''}
+    fields = ['title', 'content']
     template_name = "noteit/new_note.html"
 
-    def get(self, request):
-        form = self.form_class(initial=self.initial)
-        return render(request, self.template_name, {"form": form})
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
-    # def post(self, request):
-    #     form = self.form_class(request.POST)
-    #     return render(request, self.template_name, {"form": form})
-
-    # def form_valid(self, form):
-    #     u = User.objects.get(username='admin')
-    #     form.instance.user = u
-    #     return super().form_valid(form)
-
-    # new = Note(user=u)
-    # new.save()
-    # new_id = new.id
-    # print("new_id", new_id)
-    # print("new title", new.title)
-    # content = models.TextField()
-    # template_name = "noteit/detail.html"
-    # note_instance = get_object_or_404(Note, pk=new_id)
-    # content = models.TextField()
-    # def get_queryset(self, nid=new_id):
-    #     return Note.objects.filter(pk=nid)
+    def get_success_url(self):
+        return reverse_lazy('noteit:note_detail',
+                            kwargs={'pk': self.object.pk})
 
 
 class DetailView(generic.DetailView):
@@ -106,3 +103,5 @@ def submit(request, pk):
     # }
 
     # return render(request, "noteit/index.html", context)
+
+# <a href="{% url 'noteit:new_note' %}" style="text-decoration: none;">new note</a>

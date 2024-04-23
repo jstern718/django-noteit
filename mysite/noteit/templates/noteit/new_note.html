@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<form action="{% url 'noteit:submit' note.id %}" method="post">
+<form action="{% url 'noteit:detail' note_id %}" method="post">
     {% csrf_token %}
     <fieldset>
         <legend>
@@ -12,11 +12,11 @@
         <ul style="list-style: none">
             <li>
                 <label for: "title"> title:
-                    <input type="text" name="title" value="" style="border-top:none; border-left:none; border-right:none">
+                    <input type="text" name="title" value={self.object.title} style="border-top:none; border-left:none; border-right:none">
                 </label>
             </li>
             <li style="padding-top:5%">
-                <textarea type="textarea" name="content" style="border:none; ;"></textarea>
+                <textarea type="textarea" name="content" value={self.object.contetn} style="border:none; ;"></textarea>
             </li>
         </ul>
     </fieldset>

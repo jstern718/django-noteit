@@ -1,7 +1,11 @@
 {% extends 'noteit/base.html' %}
 
 {% block content %}
-<a href="{% url 'noteit:new_note' %}" style="text-decoration: none;">new note</a>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">New Note</button>
+</form>
     <h3>recent_notes:</h3>
     {% if latest_note_list %}
         <ul>
