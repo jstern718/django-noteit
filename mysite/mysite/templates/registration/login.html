@@ -1,0 +1,21 @@
+{% extends 'registration/base.html' %}
+
+{% block content %}
+    <h1>Login to Account</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Login</button>
+        <input type="hidden" name="next" value="/noteit/notes" />
+    </form>
+{% endblock %}
+
+{% block content2 %}
+    <h1>Login to Account</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Login</button>
+        <input type="hidden" name="next" value="/noteit/notes" />
+    </form>
+{% endblock %}

@@ -1,16 +1,13 @@
-# from django import forms
+from django import forms
+from django.contrib.auth.forms import AuthenticationForm
+
+from .models import User
 
 
-# class Note_form(forms.Form):
+class LoginForm(AuthenticationForm):
+    username = forms.CharField(max_length=255)
+    password = forms.CharField(widget=forms.PasswordInput)
 
-#     form_title = forms.CharField(label="title", help_text="enter title",
-#                                  initial="")
-#     form_content = forms.Textarea()
-
-#     def clean_note_data(self):
-#         data = self.cleaned_data['form_title', 'form_content']
-#         return data
-
-#     def __init___(self):
-#         self.title = ""
-#         self.content = ""
+    class Meta:
+        model = User
+        fields = ['username', 'password']

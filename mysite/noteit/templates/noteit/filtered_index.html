@@ -1,18 +1,12 @@
 {% extends 'noteit/base.html' %}
 
 {% block content %}
-<form method="post" class="new-note1">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="new-note2">New Note</button>
-    <input type="text" class="new-note3">
-</form>
-{% comment %} <form method="post">
+<form method="post">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">New Note</button>
-</form> {% endcomment %}
-<div class="index-table1">
+</form>
+<div>
     <h3>recent_notes:</h3>
     {% if latest_note_list %}
         <table class="table1">
@@ -29,7 +23,7 @@
             <tr >
                 <th class="row1">
                     <li style="text-align: left;">
-                        <a href="{% url 'noteit:results' note.id %}" style="text-decoration: none; font-weight:500;">{{ note.title }}</a></th>
+                        <a href="{% url 'noteit:results' note.id %}" style="text-decoration: none;">{{ note.title }}</a></th>
                     </li>
                 </th>
                 <th class="row1">
@@ -71,8 +65,8 @@
             {% if folders %}
                 <ul>
                 {% for folder in folders %}
-                    <li>
-                        <a href="{% url 'noteit:filtered_index' folder.name %}" style="text-decoration: none;">{{ folder.name }}</a>
+                    <li>{{ folder.name }}
+                        <a href="{% url 'noteit:index' folder.id %}" style="text-decoration: none;">{{ folder.name }}</a>
                     </li>
                 {% endfor %}
                 </ul>

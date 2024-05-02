@@ -5,26 +5,33 @@
 <form action="{% url 'noteit:submit' note.id %}" method="post">
     {% csrf_token %}
     <fieldset>
-        <legend>
-            <h2>edit your note</h2>
+        <legend class="legend1">
+            <h3 class="legend2">edit your note</h3>
         </legend>
         {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
-        <ul style="list-style: none">
-            <li>
-                <label for: "title"> title:
-                    <input type="text" name="title" value="{{note.title}}" style="border-top:none; border-left:none; border-right:none">
-                </label>
+        <ul style="list-style: none" class="ul1">
+            <li class="li1 title1">
+                {% comment %} <label for: "title" class="title1"> {% endcomment %}
+                    <input type="text" name="title" value="{{note.title}}" placeholder="title" class="title2">
+                    <div class="submit2">
+                        <input class="submit1" type="submit" value="submit">
+                    </div>
+                {% comment %} </label> {% endcomment %}
             </li>
-            <li style="padding-top:5%">
-                <textarea type="textarea" name="content" style="border:none; ;">{{note.content}}</textarea>
+            <li class="li1 li2">
+                <textarea type="textarea" name="content" style="border:none; ;" class="textbox1" placeholder="text">{{note.content}}</textarea>
+                <div class="info1">
+                    <div class="info2">
+                        <h4>note details</h4>
+                        <p>updated:<br><span class="info3"> {{ updated_at }} </span></p>
+                        <p>created:<br><span class="info3"> {{ created_at }} </span></p>
+                        <p>folder:<br><span class="info3"> {{ note.folder }} </span></p>
+                        <p>tags:<br><span class="info3"> {{ tags }} </span></p>
+                    </div>
+                </div>
             </li>
         </ul>
-
-
-
-
-
     </fieldset>
-    <input type="submit">
+
 </form>
 {% endblock %}

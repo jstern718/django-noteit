@@ -1,7 +1,259 @@
-body {
-    background-color: gainsboro;
+
+.textbox1 {
+    flex-direction: row;
+    background-color: white;
+    object-fit:fill;
+    width:96%;
+    height:45vh;
+    margin-top: 0;
+    margin-left:1%;
+    padding:2%;
 }
 
-.textbox1{
-    object-fit: fill;
+.ul1 {
+    margin: 0%;
+    padding: 0%;
+    /* border: solid, gray; 1px; */
+}
+
+.li1 {
+    margin: 0%;
+    padding: 0%;
+
+}
+
+.li2 {
+    display: flex;
+}
+
+.title1 {
+    margin-bottom: 0;
+    margin-left: 1%;
+    margin-right: 2%;
+    padding-bottom: 0%;
+    display:flex;
+    border-top:none;
+    border-left:none;
+    border-right:none;
+    border-bottom: 2px solid lightgray;
+    background-color: whitesmoke;
+
+}
+
+.title2{
+    background-color: whitesmoke;
+    flex: 100%;
+    padding: 2%;
+    border: none;
+    font-family: monospace;
+    font-size: 1.1em;
+    font-weight:500;
+
+}
+
+.submit1{
+    padding: 6%;
+    margin: 5px;
+    margin-left: 5%;
+    background-color: #E9E9E9;
+    /* border: 1px solid darkgray; */
+    border: none;
+    border-radius: 5px;
+    font-family: monospace;
+    width: 24dvw;
+
+}
+
+.submit2{
+
+    /* border: 1px solid red; */
+    display: flex;
+}
+
+.legend1{
+    margin-left: 10%;
+    margin-bottom: 2%;
+    padding: 0%;
+}
+
+.legend2{
+    margin: 0%;
+    padding: 0%;
+    font-family: monospace;
+}
+
+.legend3{
+    margin-left: 20%;
+    margin-bottom: 0%;
+    padding: 0 5px;
+    background-color: white;
+    width:fit-content;
+}
+
+.info1{
+    margin-top: 1%;
+    padding: 2%;
+    font-family: monospace;
+    flex-direction: row;
+    width: 35dvw;
+
+}
+
+.info2{
+    /* margin-left: 4px; */
+    background-color: whitesmoke;
+    padding-top: 5%;
+    padding-bottom: 5%;
+    padding-left: 15%;
+    padding-right: 15%;
+    /* margin-right: 10%; */
+
+}
+
+.info3{
+    font-size: xx-small;
+}
+
+.dots1{
+    color: gainsboro;
+    font-weight: 100;
+}
+
+.row1{
+    border-bottom: 1px solid whitesmoke;
+}
+
+.table1{
+    border-spacing: 0;
+}
+
+/* navbar div */
+.nav1{
+    display: grid;
+    grid-template-columns:auto auto;
+    align-items: center;
+    max-width: 750px;
+    background-color: whitesmoke;
+}
+
+
+/* App title */
+.nav2{
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+}
+
+/* logout/username div */
+.nav3{
+    display: flex;
+    align-items:center;
+    font-size: large;
+    padding: 1px 1px 1px 10px;
+    margin-left: auto;
+    margin-right: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 7px;
+    border-style: groove;
+    background-color: white;
+}
+
+
+/* Username */
+.nav4{
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+    font-size: medium;
+    font-family: monospace;
+}
+
+/* logout button */
+.nav5{
+    font-family: monospace;
+    display: flex;
+    align-items: center;
+    padding: 20px 15px 20px 15px;
+    margin-right: 3px;
+    margin-left: -5px;
+    background-color: white;
+    border: 1px none lightgray;
+    border-radius: 6px;
+    cursor: pointer; /* Add cursor pointer on hover */
+}
+
+/* hover over logout button */
+.nav5:hover{
+    background-color: lightgoldenrodyellow;
+}
+
+/* empty space */
+.nav6{
+    visibility: hidden;
+}
+
+/* seperator */
+.nav7{
+    font-size: 1.5rem;
+    font-weight: 100;
+}
+
+/* new note div */
+.new-note1{
+    display:flex;
+}
+
+/* new note button */
+.new-note2{
+    font-family: monospace;
+    width: 145px;
+    background-color: white;
+    border-radius: 0px 0px 0px 7px;
+    border-top:1px solid lightgray;
+    border-right:none;
+    border-bottom:1px solid lightgray;
+    border-left:1px solid lightgray;
+    padding: 12px 0px 12px 0px;
+
+}
+
+/* new note button hover */
+.new-note2:hover{
+    background-color: lightgoldenrodyellow;
+}
+
+/* new note text entry */
+.new-note3{
+    display: flex;
+    align-items:center;
+    justify-items: left;
+    font-size: medium;
+    font-family: calibiri;
+    width: 592px;
+    padding: 1px 1px 1px 10px;
+    margin-left: 0px 0px 0px 0px;
+    border-radius: 0px 0px 7px 0px;
+    border-top: 1px solid lightgray;;
+    border-right: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+    border-left:  1px solid lightgray;
+    background-color: white;
+}
+
+.index-table1{
+    font-family: Calibri;
+}
+
+a{
+    color: darkslateblue;
+    font-weight: 100;
+}
+
+a:visited{
+    color: darkslategray;
+}
+
+a:hover{
+    color:cadetblue
 }

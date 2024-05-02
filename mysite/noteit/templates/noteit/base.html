@@ -8,8 +8,22 @@
     <script src="{% static 'js/main.js' %}" defer></script>
   </head>
   <body style="margin:3%">
-    <h1 style="-webkit-text-stroke: 1px; -webkit-text-fill-color: transparent; font-family: Arial;">noteit:_the_notes_app</h1>
+  <div class="nav1">
+    <h1 class="nav2" style="-webkit-text-stroke: 1px; -webkit-text-fill-color: transparent; font-family: Arial;">noteit:_the_notes_app</h1>
+    <div class="nav3">
+        <p class="nav4">User: {{ user.username }} <span class="nav6">x</span> <span class="nav7">|</span></p>
+        <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button class="nav5" type="submit">Logout</button>
+        </form>
+    </div>
+
+  </div>
+  {% if user.is_authenticated %}
     {% block content %}{% endblock %}
+  {% else %}
+    {% block content2 %}{% endblock %}
+  {% endif %}
   </body>
 </html>
 
