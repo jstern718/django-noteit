@@ -9,12 +9,14 @@
   </head>
   <body style="margin:3%">
   <div class="nav1">
-    <h1 class="nav2" style="-webkit-text-stroke: 1px; -webkit-text-fill-color: transparent; font-family: Arial;">noteit:_the_notes_app</h1>
+    <a href="http://localhost:8000/noteit/notes" class="title3">
+        <h1 class="nav2 title3">noteit:_the_notes_app</h1>
+    </a>
     <div class="nav3">
         <p class="nav4">User: {{ user.username }} <span class="nav6">x</span> <span class="nav7">|</span></p>
         <form action="{% url 'logout' %}" method="post">
             {% csrf_token %}
-            <button class="nav5" type="submit">Logout</button>
+            <button class="nav5" type="submit">logout</button>
         </form>
     </div>
 

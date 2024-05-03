@@ -51,6 +51,15 @@
 
 }
 
+.title3{
+    -webkit-text-stroke: 1px;
+    -webkit-text-fill-color: transparent;
+    font-family: monospace;
+    color: black;
+    font-size: 1.6em;
+
+}
+
 .submit1{
     padding: 6%;
     margin: 5px;
@@ -134,6 +143,7 @@
     align-items: center;
     max-width: 750px;
     background-color: whitesmoke;
+    margin-bottom: 8px;
 }
 
 
@@ -142,6 +152,7 @@
     display: flex;
     align-items: center;
     margin-left: 10px;
+
 }
 
 /* logout/username div */
@@ -257,3 +268,8 @@ a:visited{
 a:hover{
     color:cadetblue
 }
+
+.dash1{
+    list-style: " — ";
+}
+

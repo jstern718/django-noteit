@@ -1,14 +1,14 @@
-from django.shortcuts import get_object_or_404, render, redirect
-from django.urls import reverse, reverse_lazy
+from django.shortcuts import get_object_or_404
+from django.urls import reverse
 from django.views import generic
 from django.db import models
 from django.http import HttpResponseRedirect, HttpResponse
 from django.utils import timezone
-from django.contrib.auth import authenticate, login, logout
+# from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
-
 from .models import Note, User, Folder, Tag
-from .forms import LoginForm
+# from .forms import LoginForm
+# from django.middleware.csrf import CsrfViewMiddleware
 
 
 def MessageView(x):
@@ -25,9 +25,10 @@ class IndexView(LoginRequiredMixin, generic.ListView):
 
     def get_queryset(self):
         print("index-get_queryset runs")
-        """Return the last five published questions."""
-
-        return Note.objects.filter(updated_at__lte=timezone.now()).order_by(
+        """Return notes that user owns."""
+        # username = get_username(request)
+        # return Note.objects.filter(Note.user == username)
+        return Note.objects.filter(user=self.request.user).order_by(
             "-updated_at")[
             :50
         ]
@@ -35,7 +36,7 @@ class IndexView(LoginRequiredMixin, generic.ListView):
     def get_context_data(self, **kwargs):
         print("index-get_context runs")
         context = super().get_context_data(**kwargs)
-        context['folders'] = Folder.objects.all()
+        context['folders'] = Folder.objects.filter(user=self.request.user)
         return context
 
     def format_date(old_date):
@@ -43,8 +44,10 @@ class IndexView(LoginRequiredMixin, generic.ListView):
 
     def post(self, request, *args, **kwargs):
         print("index-post runs")
-        admin_user = User.objects.get(username="admin")
-        note = Note.objects.create_note("", "", admin_user)
+        username = self.request.user
+        text = request.POST.get('new-text')
+        # User.objects.get(username="admin")
+        note = Note.objects.create_note(title=text, content=text, user=username)
         note.save()
         new_id = note.id
         # context = {"title": "", "content": "", "user": admin_user,
@@ -54,16 +57,34 @@ class IndexView(LoginRequiredMixin, generic.ListView):
         # return render(request, f"noteit/{new_id}/detail.html", context)
 
 
-class FilteredIndexView(LoginRequiredMixin, generic.ListView):
-    print("filtered_index")
+class FolderIndexView(LoginRequiredMixin, generic.ListView):
+    print("folder_index")
     login_url = "/accounts/login/"
     redirect_field_name = "redirect_to"
-
-    template_name = "noteit/filtered_index.html"
-    context_object_name = "list"
+    template_name = "noteit/folder_index.html"
+    context_object_name = "folder_note_list"
+    model = Note
 
     def get_queryset(self):
-        return Folder.objects.all()
+        folder_name = self.kwargs.get('folder')
+        folder = get_object_or_404(Folder, name=folder_name)
+        return Note.objects.filter(user=self.request.user).filter(
+            folder=folder)
+
+
+class TagIndexView(LoginRequiredMixin, generic.ListView):
+    print("tag_index")
+    login_url = "/accounts/login/"
+    redirect_field_name = "redirect_to"
+    template_name = "noteit/tag_index.html"
+    context_object_name = "tag_note_list"
+    model = Note
+
+    def get_queryset(self):
+        tag_name = self.kwargs.get('tag')
+        tag = get_object_or_404(Tag, name=tag_name)
+        return Note.objects.filter(user=self.request.user).filter(
+            tag=tag)
 
 
 class DetailView(LoginRequiredMixin, generic.DetailView):
@@ -138,7 +159,13 @@ def submit(LoginRequiredMixin, request, pk):
             'noteit:index', args=()))
 
 
-
+def get_username(request):
+    current_user = request.user
+    if current_user.is_authenticated:
+        username = current_user.username
+    else:
+        username = None
+    return username
 
 
 # class NewNoteView(generic.CreateView):
@@ -158,3 +185,10 @@ def submit(LoginRequiredMixin, request, pk):
 #     def get_success_url(self):
 #         return reverse_lazy('noteit:note_detail',
 #                             kwargs={'pk': self.object.pk})
+
+
+
+        # return Note.objects.filter(updated_at__lte=timezone.now()).order_by(
+        #     "-updated_at")[
+        #     :50
+        # ]

@@ -8,7 +8,7 @@
 </form>
 <div>
     <h3>recent_notes:</h3>
-    {% if latest_note_list %}
+    {% if tag_note_list %}
         <table class="table1">
             <tr>
                 <th>title</th>
@@ -19,7 +19,7 @@
                 <th></th>
                 <th>created</th>
             </tr>
-        {% for note in latest_note_list %}
+        {% for note in tag_note_list %}
             <tr >
                 <th class="row1">
                     <li style="text-align: left;">
@@ -60,20 +60,6 @@
             </tr>
         {% endfor %}
         </table>
-        <div>
-            <h3>folders:</h3>
-            {% if folders %}
-                <ul>
-                {% for folder in folders %}
-                    <li>{{ folder.name }}
-                        <a href="{% url 'noteit:index' folder.id %}" style="text-decoration: none;">{{ folder.name }}</a>
-                    </li>
-                {% endfor %}
-                </ul>
-            {% else %}
-                <p>No folders available.</p>
-            {% endif %}
-        </div>
         <div>
             <h3>tags:</h3>
         </div>

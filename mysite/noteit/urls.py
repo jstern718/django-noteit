@@ -9,8 +9,11 @@ urlpatterns = [
 
     # path("notes/login/", views.LoginView.as_view(), name="login"),
 
-    path("notes/folder/<str:name>/", views.FilteredIndexView.as_view(),
-         name="filtered_index"),
+    path("notes/folder/<str:folder>/", views.FolderIndexView.as_view(),
+         name="folder_index"),
+
+    path("notes/tag/<str:tag>/", views.TagIndexView.as_view(),
+         name="folder_index"),
 
     # ex: noteit/notes/5/ --> edit note version (working)
     path("notes/<int:pk>/", views.DetailView.as_view(), name="detail"),

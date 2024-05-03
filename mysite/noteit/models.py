@@ -31,7 +31,8 @@ class NoteManager(models.Manager):
 class Note(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=100, blank=True, null=True, default="")
-    content = models.TextField(max_length=10000, default="")
+    content = models.TextField(max_length=10000, blank=True, null=True,
+                               default="")
     # updates field when instance is created
     created_at = models.DateTimeField(auto_now_add=True)
     # updates field every time instance is saved
@@ -47,7 +48,6 @@ class Note(models.Model):
 
     def was_published_recently(self):
         return self.updated_at >= timezone.now() - datetime.timedelta(days=30)
-
 
 
 class NoteForm(ModelForm):

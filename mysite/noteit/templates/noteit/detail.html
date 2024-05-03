@@ -19,7 +19,7 @@
                 {% comment %} </label> {% endcomment %}
             </li>
             <li class="li1 li2">
-                <textarea type="textarea" name="content" style="border:none; ;" class="textbox1" placeholder="text">{{note.content}}</textarea>
+                <textarea type="textarea" name="content" style="border:none; ;" class="textbox1" placeholder="text">{{note.content | default:""}}</textarea>
                 <div class="info1">
                     <div class="info2">
                         <h4>note details</h4>
