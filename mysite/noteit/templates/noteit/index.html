@@ -1,109 +1,128 @@
 {% extends 'noteit/base.html' %}
 
 {% block content %}
-<form method="post" class="new-note1">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="new-note2">new note</button>
-    <input name="new-text" id="new-text" type="text" class="new-note3">
-</form>
-<div class="index-table1">
-    <h3>recent_notes:</h3>
-    {% if latest_note_list %}
-        <table class="table1">
-            <tr>
-                <th>title</th>
-                <th></th>
-                <th>content</th>
-                <th></th>
-                <th>updated</th>
-                <th></th>
-                <th>created</th>
-            </tr>
-        {% for note in latest_note_list %}
-            <tr >
-                <th class="row1">
-                    <li style="text-align: left;">
-                        <a href="{% url 'noteit:results' note.id %}"
+    <form method="post" class="new-note1">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="new-note2">new note</button>
+        <input name="new-text" id="new-text" type="text" class="new-note3">
+    </form>
+    <div class="index-table1">
+        <h3>recent_notes:</h3>
+        {% if latest_note_list %}
+            <table class="table1">
+                <tr>
+                    <th>title</th>
+                    <th></th>
+                    <th>content</th>
+                    <th></th>
+                    <th>updated</th>
+                    <th></th>
+                    <th>created</th>
+                    <th></th>
+                    <th>delete</th>
+                </tr>
+            {% for note in latest_note_list %}
+                <tr >
+                    <th class="row1">
+                        <li style="text-align: left;">
+                            <a href="{% url 'noteit:results' note.id %}"
+                            style="text-decoration: none; font-weight:500;"
+                            >{{ note.title | default:" - empty - " }}</a></th>
+                        </li>
+                    </th>
+                    <th class="row1">
+                        <li style="list-style: none">
+                            <span style="visibility: hidden"> --- </span>
+                            <span class="dots1">...</span>
+                            <span style="visibility: hidden"> --- </span>
+                        </li>
+                    </th>
+                    <th class="row1" style="list-style: none; text-align: left; font-weight: 200;">
+                        <a href="{% url 'noteit:detail' note.id %}"
                         style="text-decoration: none; font-weight:500;"
-                        >{{ note.title | default:" - empty - " }}</a></th>
-                    </li>
-                </th>
-                <th class="row1">
-                    <li style="list-style: none">
-                        <span style="visibility: hidden"> --- </span>
-                        <span class="dots1">...</span>
-                        <span style="visibility: hidden"> --- </span>
-                    </li>
-                </th>
-                <th class="row1" style="list-style: none; text-align: left; font-weight: 200;">
-                    <a href="{% url 'noteit:detail' note.id %}"
-                    style="text-decoration: none; font-weight:500;"
-                    >{{ note.content | default:" - empty - " }}</a>
-                </th>
-                <th class="row1">
-                    <li style="list-style: none">
-                        <span style="visibility: hidden"> --- </span>
-                        <span class="dots1">...</span>
-                        <span style="visibility: hidden"> --- </span>
-                    </li>
-                </th>
-                <th class="row1">
-                    <span style="font-size:smaller; font-weight: 200;"> {{note.updated_at|date:"n-j-y"}}
-                    </span>
-                </th>
-                <th class="row1">
-                    <li style="list-style: none">
-                        <span style="visibility: hidden"> --- </span>
-                        <span class="dots1">...</span>
-                        <span style="visibility: hidden"> --- </span>
-                    </li>
-                </th>
-                <th class="row1">
-                    <span style="font-size:smaller; font-weight: 200;"> {{note.created_at|date:"n-j-y"}}
-                </th>
-            </tr>
-        {% endfor %}
-        </table>
-        <div>
-            <h3>folders:</h3>
-            {% if folders %}
-                <table class="table1">
-                {% for folder in folders %}
+                        >{{ note.content | default:" - empty - " }}</a>
+                    </th>
+                    <th class="row1">
+                        <li style="list-style: none">
+                            <span style="visibility: hidden"> --- </span>
+                            <span class="dots1">...</span>
+                            <span style="visibility: hidden"> --- </span>
+                        </li>
+                    </th>
+                    <th class="row1">
+                        <span style="font-size:smaller; font-weight: 200;"> {{note.updated_at|date:"n-j-y"}}
+                        </span>
+                    </th>
+                    <th class="row1">
+                        <li style="list-style: none">
+                            <span style="visibility: hidden"> --- </span>
+                            <span class="dots1">...</span>
+                            <span style="visibility: hidden"> --- </span>
+                        </li>
+                    </th>
+                    <th class="row1">
+                        <span style="font-size:smaller; font-weight: 200;"> {{note.created_at|date:"n-j-y"}}
+                    </th>
+                    <th class="row1">
+                        <li style="list-style: none">
+                            <span style="visibility: hidden"> --- </span>
+                            <span class="dots1">...</span>
+                            <span style="visibility: hidden"> --- </span>
+                        </li>
+                    </th>
+                    <th class="row1">
+                        <span style="font-size:smaller; font-weight: 200;">
+                        <form id="delete-form{{ note.id }}" action="{% url 'noteit:delete_note' pk=note.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="button" class="delete-btn1">&#9744;</button>
+                        </form>
+                    </th>
+                </tr>
+            {% endfor %}
+            </table>
+            <div>
+                <h3>folders:</h3>
+                <form method="post" class="new-folder1">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="new-folder2">new folder</button>
+                    <input name="new-folder-name" id="new-folder-id" type="text" class="new-folder3">
+                </form>
+                {% if folders %}
+                    <table class="table1">
+                    {% for folder in folders %}
+                        <li>
+                            <a href="{% url 'noteit:folder_index' folder.name %}" style="text-decoration: none;">{{ folder.name }}</a>
+                        </li>
+                    {% endfor %}
+                    </table>
+                {% else %}
+                    <ul>
+                        <li class="dash1">No folders available.</li>
+                    </ul>
+                {% endif %}
+            </div>
+            <div>
+                <h3>tags:</h3>
+                {% if tags %}
+                <table>
+                {% for tag in tags %}
                     <li>
-                        <a href="{% url 'noteit:folder_index' folder.name %}" style="text-decoration: none;">{{ folder.name }}</a>
+                        <a href="{% url 'noteit:tag_index' tag.name %}" style="text-decoration: none;">{{ tag.name }}</a>
                     </li>
                 {% endfor %}
                 </table>
             {% else %}
-                <ul>
-                    <li class="dash1">No folders available.</li>
-                </ul>
+                <table>
+                    <li class="dash1">no tags available.</li>
+                </table>
             {% endif %}
-        </div>
-        <div>
-            <h3>tags:</h3>
-            {% if tags %}
-            <table>
-            {% for tag in tags %}
-                <li>
-                    <a href="{% url 'noteit:tag_index' tag.name %}" style="text-decoration: none;">{{ tag.name }}</a>
-                </li>
-            {% endfor %}
-            </table>
+            </div>
         {% else %}
-            <table>
-                <li class="dash1">no tags available.</li>
-            </table>
+            <ul>
+                <li class="dash1">no notes are available.</li>
+            </ul>
         {% endif %}
-        </div>
-    {% else %}
-        <ul>
-            <li class="dash1">no notes are available.</li>
-        </ul>
-    {% endif %}
-</div>
-
+    </div>
 {% endblock %}
-
-

@@ -141,9 +141,13 @@
     display: grid;
     grid-template-columns:auto auto;
     align-items: center;
-    max-width: 750px;
+    max-width: 748px;
     background-color: whitesmoke;
-    margin-bottom: 8px;
+    border-top: 1px solid lightgray;
+    border-right: 1px solid lightgray;
+    border-left: 1px solid lightgray;
+    margin-bottom: 0px;
+    border-radius: 7px 7px 0px 0px;
 }
 
 
@@ -169,7 +173,6 @@
     border-style: groove;
     background-color: white;
 }
-
 
 /* Username */
 .nav4{
@@ -220,13 +223,12 @@
     font-family: monospace;
     width: 145px;
     background-color: white;
-    border-radius: 0px 0px 0px 7px;
     border-top:1px solid lightgray;
     border-right:none;
     border-bottom:1px solid lightgray;
     border-left:1px solid lightgray;
     padding: 12px 0px 12px 0px;
-
+    border-radius: 0px 0px 0px 7px;
 }
 
 /* new note button hover */
@@ -244,12 +246,59 @@
     width: 592px;
     padding: 1px 1px 1px 10px;
     margin-left: 0px 0px 0px 0px;
-    border-radius: 0px 0px 7px 0px;
     border-top: 1px solid lightgray;;
     border-right: 1px solid lightgray;
     border-bottom: 1px solid lightgray;
     border-left:  1px solid lightgray;
     background-color: white;
+    border-radius: 0px 0px 7px 0px;
+}
+
+/* new folder div */
+.new-folder1{
+    display:flex;
+    margin-bottom: 10px;
+}
+
+/* new folder button */
+.new-folder2{
+    font-family: monospace;
+    width: 145px;
+    background-color: white;
+    border-top:1px solid lightgray;
+    border-right:none;
+    border-bottom:1px solid lightgray;
+    border-left:1px solid lightgray;
+    padding: 12px 0px 12px 0px;
+    border-radius: 7px 0px 0px 7px;
+}
+
+/* new folder button hover */
+.new-folder2:hover{
+    background-color: lightgoldenrodyellow;
+}
+
+/* new folder text entry */
+.new-folder3{
+    display: flex;
+    align-items:center;
+    justify-items: left;
+    font-size: medium;
+    font-family: calibiri;
+    width: 592px;
+    padding: 1px 1px 1px 10px;
+    margin-left: 0px 0px 0px 0px;
+    border-top: 1px solid lightgray;;
+    border-right: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+    border-left:  1px solid lightgray;
+    background-color: white;
+    border-radius: 0px 7px 7px 0px;
+}
+
+.delete-btn1{
+    background-color: white;
+    border: none;
 }
 
 .index-table1{

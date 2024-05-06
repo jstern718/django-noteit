@@ -1,14 +1,17 @@
 from django.shortcuts import get_object_or_404
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.views import generic
 from django.db import models
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.utils import timezone
 # from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Note, User, Folder, Tag
 # from .forms import LoginForm
 # from django.middleware.csrf import CsrfViewMiddleware
+import colorama
+
+colorama.init()
 
 
 def MessageView(x):
@@ -126,24 +129,6 @@ class ResultsView(LoginRequiredMixin, generic.DetailView):
     template_name = "noteit/results.html"
 
 
-# class LoginView(generic.FormView):
-#     print("loginView runs")
-#     next = "noteit/notes/"
-#     # model = User
-#     form_class = LoginForm
-
-#     def form_valid(self, form):
-#         username = form.cleaned_data['username']
-#         password = form.cleaned_data['password']
-#         user = authenticate(username=username, password=password)
-#         if user is not None:
-#             login(self.request, user)
-#             return redirect('/noteit/notes/')
-#         else:
-#             form.add_error(None, 'Invalid username or password.')
-#         return super().form_valid(form)
-
-
 def submit(LoginRequiredMixin, request, pk):
     print("submit")
 
@@ -159,6 +144,33 @@ def submit(LoginRequiredMixin, request, pk):
             'noteit:index', args=()))
 
 
+# class ConfirmDelete(generic.RedirectView):
+#     template_name = 'noteit/index.html'
+
+
+class DeleteView(LoginRequiredMixin, generic.DeleteView):
+    print(colorama.Fore.GREEN + colorama.Back.BLACK + "delete")
+    print(colorama.Style.RESET_ALL)
+
+    model = Note
+    login_url = "/accounts/login/"
+
+    def get_queryset(self):
+        print(colorama.Fore.GREEN + colorama.Back.BLACK +
+              "delete get_queryset runs")
+        print(colorama.Style.RESET_ALL)
+        return super().get_queryset().filter(user=self.request.user)
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        self.object.delete()
+        return super().delete(request, *args, **kwargs)
+
+    def get_success_url(self):
+        # return reverse('noteit:confirm_delete', kwargs={'pk': self.object.pk})
+        return reverse('noteit:index')
+
+
 def get_username(request):
     current_user = request.user
     if current_user.is_authenticated:
@@ -166,29 +178,3 @@ def get_username(request):
     else:
         username = None
     return username
-
-
-# class NewNoteView(generic.CreateView):
-#     print("new note view runs")
-#     admin_user = User.objects.get(username="admin")
-#     note = Note.objects.create_note("", "", admin_user)
-#     note.save()
-#     note_id = note.id
-#     model = Note
-#     fields = ['title', 'content']
-#     template_name = "noteit/new_note.html"
-
-#     def form_valid(self, form):
-#         form.instance.user = self.request.user
-#         return super().form_valid(form)
-
-#     def get_success_url(self):
-#         return reverse_lazy('noteit:note_detail',
-#                             kwargs={'pk': self.object.pk})
-
-
-
-        # return Note.objects.filter(updated_at__lte=timezone.now()).order_by(
-        #     "-updated_at")[
-        #     :50
-        # ]

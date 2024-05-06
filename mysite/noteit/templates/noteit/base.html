@@ -29,3 +29,19 @@
   </body>
 </html>
 
+{% block scripts %}
+    <script>
+        let delete_buttons = document.querySelectorAll(".delete-btn1");
+        delete_buttons.forEach(button => {
+            console.log("button", button);
+            button.addEventListener("click", function(){
+                let confirmation = confirm(`Are you sure you want to delete this item?`);
+                if (confirmation) {
+                    let form = this.closest("form");
+                    form.submit();
+                }
+            });
+        });
+    </script>
+{% endblock %}
+

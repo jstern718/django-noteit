@@ -4,11 +4,6 @@ from . import views
 
 app_name = "noteit"
 urlpatterns = [
-    # ex: noteit/add --> create new note (TODO: not working yet)
-    # path("notes/add/", views.NewNoteView.as_view(), name="new_note"),
-
-    # path("notes/login/", views.LoginView.as_view(), name="login"),
-
     path("notes/folder/<str:folder>/", views.FolderIndexView.as_view(),
          name="folder_index"),
 
@@ -22,6 +17,13 @@ urlpatterns = [
     path("notes/<int:pk>/results/", views.ResultsView.as_view(),
          name="results"),
 
+    # ex: noteit/5/delete --> delete note
+    path("notes/<int:pk>/delete/", views.DeleteView.as_view(),
+         name="delete_note"),
+
+    # path("notes/<int:pk>/confirm-delete", views.ConfirmDelete.as_view(),
+    #      name="confirm_delete"),
+
     # ex: noteit/5/submit/ --> submit edits to note (working)
     path("notes/<int:pk>/submit/", views.submit, name="submit"),
 
@@ -29,5 +31,5 @@ urlpatterns = [
     path("notes/", views.IndexView.as_view(), name="index"),
 
     # ex: noteit/message --> javascript test (working)
-    path("notes/message", views.MessageView, name="message"),
+    # path("notes/message", views.MessageView, name="message"),
 ]
