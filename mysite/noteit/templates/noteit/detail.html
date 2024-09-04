@@ -10,19 +10,27 @@
         </legend>
         {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
         <ul style="list-style: none" class="ul1">
-            <li class="li1 title1">
+            <li class="li1 title1" style="font-size:medium">
                 {% comment %} <label for: "title" class="title1"> {% endcomment %}
+                <div class="title4" >
                     <input type="text" name="title" value="{{note.title}}" placeholder="title" class="title2">
                     <div class="submit2">
-                        <input class="submit1" type="submit" value="submit">
+                        <input type="submit" value="submit" class="submit1">
                     </div>
+                </div>
+                <div class="title4">
+                    <input type="text" name="folder" value={{tags}} class="title2" >
+                    <div class="submit2">
+                        <input type="submit" value="submit" class="submit1">
+                    </div>
+                </div>
                 {% comment %} </label> {% endcomment %}
             </li>
             <li class="li1 li2">
-                <textarea type="textarea" name="content" style="border:none; ;" class="textbox1" placeholder="text">{{note.content | default:""}}</textarea>
-                <div class="info1">
+                <textarea type="textarea" name="content" style="border:none; ;" class="textbox1 col-8" placeholder="text">{{note.content | default:""}}</textarea>
+                <div class="info1 col-4 mr-6">
                     <div class="info2">
-                        <h4>note details</h4>
+                        <h5>note details</h5>
                         <p>updated:<br><span class="info3"> {{ updated_at }} </span></p>
                         <p>created:<br><span class="info3"> {{ created_at }} </span></p>
                         <p>folder:<br><span class="info3"> {{ note.folder }} </span></p>

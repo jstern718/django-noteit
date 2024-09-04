@@ -25,7 +25,7 @@ urlpatterns = [
     #      name="confirm_delete"),
 
     # ex: noteit/5/submit/ --> submit edits to note (working)
-    path("notes/<int:pk>/submit/", views.submit, name="submit"),
+    path("notes/<int:pk>/submit/", views.SubmitView.as_view(), name="submit"),
 
     # ex: noteit/notes --> index/homepage (working)
     path("notes/", views.IndexView.as_view(), name="index"),

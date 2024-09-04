@@ -1,4 +1,4 @@
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render
 from django.urls import reverse, reverse_lazy
 from django.views import generic
 from django.db import models
@@ -6,6 +6,7 @@ from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.utils import timezone
 # from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 from .models import Note, User, Folder, Tag
 # from .forms import LoginForm
 # from django.middleware.csrf import CsrfViewMiddleware
@@ -61,7 +62,7 @@ class IndexView(LoginRequiredMixin, generic.ListView):
 
 
 class FolderIndexView(LoginRequiredMixin, generic.ListView):
-    print("folder_index")
+    print("folder_index_view")
     login_url = "/accounts/login/"
     redirect_field_name = "redirect_to"
     template_name = "noteit/folder_index.html"
@@ -76,7 +77,7 @@ class FolderIndexView(LoginRequiredMixin, generic.ListView):
 
 
 class TagIndexView(LoginRequiredMixin, generic.ListView):
-    print("tag_index")
+    print("tag_index_view")
     login_url = "/accounts/login/"
     redirect_field_name = "redirect_to"
     template_name = "noteit/tag_index.html"
@@ -91,7 +92,7 @@ class TagIndexView(LoginRequiredMixin, generic.ListView):
 
 
 class DetailView(LoginRequiredMixin, generic.DetailView):
-    print("detail")
+    print("detailView")
     login_url = "/accounts/login/"
     redirect_field_name = "redirect_to"
 
@@ -120,7 +121,7 @@ class DetailView(LoginRequiredMixin, generic.DetailView):
 
 
 class ResultsView(LoginRequiredMixin, generic.DetailView):
-    print("results")
+    print("resultsView")
     login_url = "/accounts/login/"
     redirect_field_name = "redirect_to"
 
@@ -128,13 +129,12 @@ class ResultsView(LoginRequiredMixin, generic.DetailView):
     content = Note.content
     template_name = "noteit/results.html"
 
+class SubmitView(LoginRequiredMixin, generic.View):
+    login_url = '/accounts/login/'
+    print("submitView")
 
-def submit(LoginRequiredMixin, request, pk):
-    print("submit")
-
-    note_instance = get_object_or_404(Note, pk=pk)
-
-    if request.method == 'POST':
+    def post(self, request, pk):
+        note_instance = get_object_or_404(Note, pk=pk)
         form_data = request.POST
         note_instance.title = form_data['title']
         note_instance.content = form_data['content']
@@ -143,13 +143,17 @@ def submit(LoginRequiredMixin, request, pk):
         return HttpResponseRedirect(reverse(
             'noteit:index', args=()))
 
+    def get(self, request, pk):
+        note_instance = get_object_or_404(Note, pk=pk)
+        return render(request, 'noteit/note_form.html', {'note': note_instance})
+
 
 # class ConfirmDelete(generic.RedirectView):
 #     template_name = 'noteit/index.html'
 
 
 class DeleteView(LoginRequiredMixin, generic.DeleteView):
-    print(colorama.Fore.GREEN + colorama.Back.BLACK + "delete")
+    print(colorama.Fore.GREEN + colorama.Back.BLACK + "delete_view")
     print(colorama.Style.RESET_ALL)
 
     model = Note
@@ -172,6 +176,7 @@ class DeleteView(LoginRequiredMixin, generic.DeleteView):
 
 
 def get_username(request):
+    print("get_username runs")
     current_user = request.user
     if current_user.is_authenticated:
         username = current_user.username

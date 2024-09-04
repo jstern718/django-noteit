@@ -9,10 +9,25 @@
         <li style="font-size:small">modified: {{ note.updated_at|date:"D n-j-y"}} at
             {{note.updated_at|time:"P" }}</li>
         <hr>
-        <p>{{note.content}}</p>
+        <li class="li1 li2">
+            <div class="textbox2 container-xl" style="float: left">
+                <p class="textbox3" style="text-align: left; font-size: medium;">{{ note.content }}</p>
+            </div>
+            <div class="info1 container-sm" style="float: right">
+                <div class="info2" style="font-size:small"">
+                    <h4>note details</h4>
+                    <p>updated:<br><span class="info3"> {{ note.updated_at }} </span></p>
+                    <p>created:<br><span class="info3"> {{ note.created_at }} </span></p>
+                    <p>folder:<br><span class="info3"> {{ note.folder }} </span></p>
+                    <p>tags:B<br><span class="info3"> {{ note.tags }} </span></p>
+                </div>
+            </div>
+        </li>
     </ul>
+    <div>
+        <a href="{% url 'noteit:detail' note.id %}" class="btn btn-light border-0"><button class="border-0 bg-light">edit note</button></a>
+    </div>
 
-    <a href="{% url 'noteit:detail' note.id %}" style="padding:2%"><button>edit note</button></a>
 
 
 

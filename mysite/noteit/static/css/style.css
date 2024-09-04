@@ -1,4 +1,3 @@
-
 .textbox1 {
     flex-direction: row;
     background-color: white;
@@ -10,6 +9,16 @@
     padding:2%;
 }
 
+.textbox2{
+    display: flex;
+    flex-direction: row;
+    flex-basis: 100px;
+}
+
+.textbox3{
+    text-align: left;
+}
+
 .ul1 {
     margin: 0%;
     padding: 0%;
@@ -17,13 +26,13 @@
 }
 
 .li1 {
-    margin: 0%;
+    margin: 2%;
     padding: 0%;
 
 }
 
 .li2 {
-    display: flex;
+    display: block;
 }
 
 .title1 {
@@ -37,7 +46,8 @@
     border-right:none;
     border-bottom: 2px solid lightgray;
     background-color: whitesmoke;
-
+    flex-direction: column;
+    align-items: start;
 }
 
 .title2{
@@ -46,7 +56,7 @@
     padding: 2%;
     border: none;
     font-family: monospace;
-    font-size: 1.1em;
+    font-size: 0.8em;
     font-weight:500;
 
 }
@@ -56,8 +66,12 @@
     -webkit-text-fill-color: transparent;
     font-family: monospace;
     color: black;
-    font-size: 1.6em;
+    /* font-size: 1.3em; */
+}
 
+.title4{
+    display: flex;
+    flex-direction: row;
 }
 
 .submit1{
@@ -138,10 +152,8 @@
 
 /* navbar div */
 .nav1{
-    display: grid;
-    grid-template-columns:auto auto;
     align-items: center;
-    max-width: 748px;
+    grid-template-columns: auto auto;
     background-color: whitesmoke;
     border-top: 1px solid lightgray;
     border-right: 1px solid lightgray;
@@ -150,12 +162,12 @@
     border-radius: 7px 7px 0px 0px;
 }
 
-
 /* App title */
 .nav2{
     display: flex;
     align-items: center;
     margin-left: 10px;
+    font-size: 1.3em;
 
 }
 
@@ -163,12 +175,12 @@
 .nav3{
     display: flex;
     align-items:center;
-    font-size: large;
+    /* font-size: large;  */
     padding: 1px 1px 1px 10px;
     margin-left: auto;
     margin-right: 10px;
     margin-top: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     border-radius: 7px;
     border-style: groove;
     background-color: white;
@@ -176,10 +188,10 @@
 
 /* Username */
 .nav4{
-    display: flex;
-    align-items: center;
+    /* display: flex;
+    align-items: center; */
     margin-right: 10px;
-    font-size: medium;
+    font-size:smaller;
     font-family: monospace;
 }
 
@@ -320,5 +332,10 @@ a:hover{
 
 .dash1{
     list-style: " — ";
+}
+
+.divRight{
+    align-items:end;
+    align-content:flex-end;
 }
 
